@@ -71,7 +71,7 @@ class Contact extends Component {
                     <div className="col-12 col-md-9">
                         <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
                             <Row className="form-group">
-                                <Label htmlFor=".firstname" md={2}>First Name</Label>
+                                <Label htmlFor="firstname" md={2}>First Name</Label>
                                 <Col md={10}>
                                     <Control.text model=".firstname" id="firstname" name="firstname" 
                                         placeholder="First Name" 
@@ -172,8 +172,7 @@ class Contact extends Component {
                                 </Col>
                                 <Col md={{size: 3, offset: 1}}>
                                     <Control.select model=".contactType" name="contactType" 
-                                        className="form-control"
-                                        >
+                                        className="form-control">
                                         <option>Tel.</option>
                                         <option>Email</option>
                                     </Control.select>
