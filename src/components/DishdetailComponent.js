@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card, CardBody, CardTitle, CardImg, CardText, Breadcrumb, BreadcrumbItem, Button,
-        Modal, ModalHeader, ModalBody, Col, Row, Label } from 'reactstrap';
+        Modal, ModalHeader, ModalBody, Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { LocalForm, Errors, Control } from 'react-redux-form';
 
@@ -28,7 +28,8 @@ class CommentForm extends React.Component {
     }
 
     handleSubmit(values){
-        alert(JSON.stringify(values));
+        //alert(JSON.stringify(values));
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     render() {
@@ -87,7 +88,7 @@ function RenderDish({dish}) {
     );
 }
 
-function RenderComment({comment}) {
+function RenderComment({comment, addComment, dishId}) {
 
     const comments = comment.map((comp) => {
         return (
@@ -103,7 +104,7 @@ function RenderComment({comment}) {
     return (
         <React.Fragment>
             {comments}
-            <CommentForm/>
+            <CommentForm dishId={dishId} addComment={addComment}/>
         </React.Fragment>
         );
 }
@@ -132,7 +133,9 @@ const DishDetail = (props) => {
                     <div className="col-12 col-md-5 m-1">
                         <h4 className="m-0 p-0">Comments</h4>
                         <ul className="list-unstyled">
-                            <RenderComment comment={props.comments}/>
+                            <RenderComment comment={props.comments}
+                                addComment={props.addComment}
+                                dishId={props.dish.id}/>
                         </ul> 
                         
                     </div>
