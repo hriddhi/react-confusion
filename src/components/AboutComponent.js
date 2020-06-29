@@ -1,28 +1,41 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { baseUrl } from '../shared/baseUrl';
+import { Loading } from './LoadingComponent';
+import { Stagger } from 'react-animation-components';
 
-const RenderLeader = ({l}) => {
-    return (
-        <Media className="mb-4 mt-4">
-            <Media left className="mt-1 mr-5">
-                <Media object src={l.image} alt={l.name} />
-            </Media>
-            <Media body>
-                <Media heading>{l.name}</Media>
-                <Media className="mb-3">{l.designation}</Media>
-                {l.description}
-            </Media>
-        </Media>
-    );
+const RenderLeader = ({l, isLoading, errMess}) => {
+    if(isLoading) {
+        return(
+            <Loading />
+        )
+    } else if(errMess) {
+        return(
+            <h4>{errMess}</h4>
+        )
+    } else
+        return (
+            <Stagger in>
+                <Media className="mb-4 mt-4">
+                    <Media left className="mt-1 mr-5">
+                        <Media object src={baseUrl + l.image} alt={l.name} />
+                    </Media>
+                    <Media body>
+                        <Media heading>{l.name}</Media>
+                        <Media className="mb-3">{l.designation}</Media>
+                        {l.description}
+                    </Media>
+                </Media>
+            </Stagger>
+        );
 };
 
 function About(props) {
 
-    const leaders = props.leaders.map((leader) => {
+    const leaders = props.leaders.leaders.map((leader) => {
         return (
-            <RenderLeader l={leader}/>
-            
+            <RenderLeader l={leader} isLoading={props.isLoading} errMess={props.errMess} />
         );
     });
 
